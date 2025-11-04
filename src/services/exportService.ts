@@ -202,7 +202,7 @@ export async function exportBattleDataToExcel(data: GuildBattleData[]): Promise<
       };
       worksheet.getRow(1).alignment = { vertical: 'middle', horizontal: 'center' };
       
-      // 对数据排序：素问按治疗量降序，其他按总伤害降序
+      // 对数据排序：素问按治疗量降序，铁衣按控制降序，其他按总伤害降序
       const sortedRecords = [...team.records].sort((a, b) => {
         // 素问职业按治疗量降序
         if (a.class === '素问' && b.class === '素问') {
@@ -210,6 +210,13 @@ export async function exportBattleDataToExcel(data: GuildBattleData[]): Promise<
         }
         if (a.class === '素问') return -1;
         if (b.class === '素问') return 1;
+        
+        // 铁衣职业按控制降序
+        if (a.class === '铁衣' && b.class === '铁衣') {
+          return b.control - a.control;
+        }
+        if (a.class === '铁衣') return -1;
+        if (b.class === '铁衣') return 1;
         
         // 其他职业按总伤害降序
         const aTotalDamage = a.playerDamage + a.buildingDamage;
