@@ -259,3 +259,64 @@ crontab -e
 ```
 
 详细配置请参考 `GITHUB_ACTIONS_SETUP.md`
+
+
+## 环境变量配置（更新）
+
+### DeepSeek-OCR API 密钥
+
+图片名单对比功能需要配置 DeepSeek-OCR API 密钥。
+
+**重要**：API 密钥只在服务器端使用，通过后端代理调用，不会暴露到前端代码中。
+
+### 获取 API 密钥
+
+1. 访问 [硅基流动官网](https://siliconflow.cn)
+2. 注册并登录账号
+3. 进入控制台创建 API 密钥
+4. 复制密钥并配置到服务器环境变量
+
+### Docker 部署配置
+
+在服务器上设置环境变量：
+
+```bash
+# 设置 API 密钥
+export DEEPSEEK_API_KEY="your_api_key_here"
+
+# 启动服务
+docker-compose -f docker-compose.prod.yml up -d
+```
+
+或者创建 `.env` 文件（与 `docker-compose.prod.yml` 同目录）：
+
+```env
+DEEPSEEK_API_KEY=your_api_key_here
+```
+
+然后启动：
+
+```bash
+docker-compose -f docker-compose.prod.yml up -d
+```
+
+### 架构说明
+
+- **前端**：React + Vite 构建的静态文件
+- **后端**：Node.js + Express 服务器
+  - 提供静态文件服务
+  - 提供 `/api/ocr` 代理端点
+  - API 密钥只存在于服务器端
+- **安全性**：前端代码中不包含任何 API 密钥信息
+
+### 本地开发配置
+
+本地开发时，API 密钥配置在 `.env.local` 文件中：
+
+```env
+VITE_DEEPSEEK_API_KEY=your_api_key_here
+```
+
+**注意**：
+- `.env.local` 已被 `.gitignore` 忽略，不会提交到代码仓库
+- 生产环境使用后端代理，API 密钥只存在于服务器端

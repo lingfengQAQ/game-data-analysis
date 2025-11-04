@@ -6,10 +6,12 @@ services:
     image: qaqtat/game-data-analysis:latest
     container_name: game-data-analysis-app
     ports:
-      - "80:80"  # 生产环境使用 80 端口
+      - "80:3000"  # 映射到 Node.js 服务器端口
     restart: unless-stopped
     environment:
       - NODE_ENV=production
+      - PORT=3000
+      - DEEPSEEK_API_KEY=${DEEPSEEK_API_KEY}  # 从环境变量读取
     networks:
       - app-network
     # 健康检查

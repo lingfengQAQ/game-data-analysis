@@ -1,4 +1,4 @@
-// DeepSeek-OCR 服务
+// DeepSeek-OCR 服务 - 通过后端代理调用
 
 interface OCRMessage {
   role: 'user';
@@ -25,22 +25,13 @@ interface OCRResponse {
 }
 
 class OCRService {
-  private apiKey: string;
-  private baseURL = 'https://api.siliconflow.cn/v1/chat/completions';
+  private apiURL = '/api/ocr'; // 后端代理端点
   private model = 'deepseek-ai/DeepSeek-OCR';
-  
-  constructor() {
-    this.apiKey = import.meta.env.VITE_DEEPSEEK_API_KEY || '';
-  }
   
   /**
    * 识别单张图片中的角色名
    */
   async recognizeImage(imageFile: File): Promise<string[]> {
-    if (!this.apiKey) {
-      throw new Error('API 密钥未配置，请在环境变量中设置 VITE_DEEPSEEK_API_KEY');
-    }
-    
     try {
       // 1. 转换图片为 base64
       const base64 = await this.fileToBase64(imageFile);
@@ -65,19 +56,18 @@ class OCRService {
         max_tokens: 2048
       };
       
-      // 3. 调用 API
-      const response = await fetch(this.baseURL, {
+      // 3. 调用后端代理 API
+      const response = await fetch(this.apiURL, {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${this.apiKey}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(request)
       });
       
       if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(`API 请求失败: ${response.status} - ${errorText}`);
+        const errorData = await response.json().catch(() => ({ error: '未知错误' }));
+        throw new Error(errorData.message || errorData.error || `API 请求失败: ${response.status}`);
       }
       
       const data: OCRResponse = await response.json();
@@ -146,10 +136,15 @@ class OCRService {
   }
   
   /**
-   * 检查 API 密钥是否已配置
+   * 检查 API 是否可用（通过后端健康检查）
    */
-  isConfigured(): boolean {
-    return !!this.apiKey;
+  async isConfigured(): Promise<boolean> {
+    try {
+      const response = await fetch('/health');
+      return response.ok;
+    } catch {
+      return false;
+    }
   }
 }
 
