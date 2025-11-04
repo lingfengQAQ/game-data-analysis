@@ -1,0 +1,144 @@
+.team-board-container {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+
+.team-board-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  min-width: 1200px;
+}
+
+.regiment-container {
+  background: #fafafa;
+  border-radius: 8px;
+  padding: 16px;
+  border: 2px solid #e8e8e8;
+}
+
+.regiment-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #d9d9d9;
+}
+
+.regiment-header h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.regiment-count {
+  font-size: 14px;
+  color: #666;
+  font-weight: 500;
+}
+
+.regiment-squads {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.squad-slot {
+  background: white;
+  border-radius: 6px;
+  padding: 12px;
+  border: 1px solid #e8e8e8;
+}
+
+.squad-header {
+  font-size: 13px;
+  font-weight: 600;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.squad-players {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
+}
+
+.player-slot {
+  min-height: 80px;
+  border-radius: 4px;
+  border: 2px dashed #d9d9d9;
+  transition: all 0.2s;
+}
+
+.player-slot.empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.player-slot.drop-target {
+  border-color: #1890ff;
+  background-color: rgba(24, 144, 255, 0.1);
+}
+
+.empty-slot {
+  color: #bfbfbf;
+  font-size: 12px;
+  text-align: center;
+}
+
+.player-card {
+  height: 100%;
+  padding: 8px;
+  border-radius: 4px;
+  cursor: move;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.2s, box-shadow 0.2s;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.player-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.player-card.dragging {
+  opacity: 0.5;
+}
+
+.player-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: #000;
+  margin-bottom: 4px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.player-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.player-power {
+  font-size: 12px;
+  font-weight: 600;
+  color: #d4380d;
+}
+
+.player-class {
+  font-size: 11px;
+  color: #595959;
+}
+
+@media (max-width: 1400px) {
+  .team-board-grid {
+    grid-template-columns: 1fr;
+  }
+}

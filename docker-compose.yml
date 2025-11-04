@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  game-data-analysis:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: game-data-analysis-app
+    ports:
+      - "8080:80"
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

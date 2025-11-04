@@ -1,0 +1,165 @@
+/* 全局样式 */
+:root {
+  --primary-color: #1890ff;
+  --success-color: #52c41a;
+  --warning-color: #faad14;
+  --error-color: #f5222d;
+  --text-color: #000000d9;
+  --text-secondary: #00000073;
+  --border-color: #d9d9d9;
+  --background-color: #ffffff;
+  --hover-background: #f5f5f5;
+  
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  
+  --border-radius: 4px;
+  --box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+    'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+    'Noto Color Emoji';
+  font-size: 14px;
+  line-height: 1.5715;
+  color: var(--text-color);
+  background-color: #f0f2f5;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* 布局 */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.app-header {
+  background: var(--background-color);
+  box-shadow: var(--box-shadow);
+  padding: 0 var(--spacing-lg);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+}
+
+.app-content {
+  flex: 1;
+  padding: var(--spacing-lg);
+}
+
+/* 团队配置页面布局 */
+.team-config-layout {
+  display: flex;
+  gap: var(--spacing-lg);
+  height: calc(100vh - 64px - 48px);
+}
+
+.player-list-panel {
+  width: 400px;
+  background: var(--background-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.team-board-panel {
+  flex: 1;
+  background: var(--background-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  overflow: auto;
+  padding: var(--spacing-lg);
+}
+
+/* 拖拽样式 */
+.draggable {
+  cursor: move;
+  transition: opacity 0.2s;
+}
+
+.draggable:hover {
+  opacity: 0.8;
+}
+
+.dragging {
+  opacity: 0.5;
+}
+
+.drop-target {
+  border: 2px dashed var(--primary-color);
+  background-color: rgba(24, 144, 255, 0.1);
+}
+
+/* 条形图样式 */
+.bar-chart-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.bar-chart-container .bar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  transition: width 0.3s ease;
+  opacity: 0.6;
+}
+
+.bar-chart-container .value {
+  position: relative;
+  z-index: 1;
+  padding: 0 var(--spacing-xs);
+  font-weight: 500;
+}
+
+/* 响应式 */
+@media (max-width: 1200px) {
+  .team-config-layout {
+    flex-direction: column;
+    height: auto;
+  }
+  
+  .player-list-panel {
+    width: 100%;
+    max-height: 400px;
+  }
+}
+
+/* 滚动条样式 */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
