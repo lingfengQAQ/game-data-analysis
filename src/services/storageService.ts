@@ -47,7 +47,7 @@ class StorageService {
 
   // 获取当前配置
   getCurrentConfiguration(): TeamConfiguration | null {
-    const data = localStorage.setItem(STORAGE_KEYS.CURRENT_CONFIG);
+    const data = localStorage.getItem(STORAGE_KEYS.CURRENT_CONFIG);
     return data ? JSON.parse(data) : null;
   }
 }

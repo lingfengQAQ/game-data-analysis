@@ -6,8 +6,6 @@ import { getClassColor } from '../../../utils/colorUtils';
 import { BarCell } from '../BarCell';
 import './styles.css';
 
-const { Option } = Select;
-
 export function BattleDataTable() {
   const guildData = useBattleDataStore(state => state.guildData);
   const viewMode = useBattleDataStore(state => state.viewMode);

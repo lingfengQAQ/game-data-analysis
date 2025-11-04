@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { Input, Select, Table, Space } from 'antd';
+import { Input, Select, Space } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import { useDraggable, useDroppable } from '@dnd-kit/core';
 import { usePlayerStore } from '../../../stores/playerStore';
