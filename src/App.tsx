@@ -1,14 +1,15 @@
 import { useState } from 'react';
 import { Layout, Menu, Typography } from 'antd';
-import { TeamOutlined, BarChartOutlined } from '@ant-design/icons';
+import { TeamOutlined, BarChartOutlined, PictureOutlined } from '@ant-design/icons';
 import { TeamConfigPage } from './pages/TeamConfigPage';
 import { BattleDataAnalysisPage } from './pages/BattleDataAnalysisPage';
+import { ImageComparisonPage } from './pages/ImageComparisonPage';
 import './styles/global.css';
 
 const { Header, Content } = Layout;
 const { Title } = Typography;
 
-type PageType = 'team-config' | 'battle-data';
+type PageType = 'team-config' | 'battle-data' | 'image-comparison';
 
 function App() {
   const [currentPage, setCurrentPage] = useState<PageType>('team-config');
@@ -34,6 +35,11 @@ function App() {
               key: 'battle-data',
               icon: <BarChartOutlined />,
               label: '帮战数据分析'
+            },
+            {
+              key: 'image-comparison',
+              icon: <PictureOutlined />,
+              label: '图片名单对比'
             }
           ]}
         />
@@ -41,6 +47,7 @@ function App() {
       <Content className="app-content">
         {currentPage === 'team-config' && <TeamConfigPage />}
         {currentPage === 'battle-data' && <BattleDataAnalysisPage />}
+        {currentPage === 'image-comparison' && <ImageComparisonPage />}
       </Content>
     </Layout>
   );
